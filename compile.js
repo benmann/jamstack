@@ -12,18 +12,17 @@ fs.readdir(templateDirectory, function(err, files) {
                 let matches = content.match(/{{(.*?)}}/g)
                 let rendered
 
-                if (matches) {
-                    matches.forEach(function(match) {
-                        let partial = match.replace("{{", "").replace("}}", "").trim()
-                        let replacement = fs.readFileSync(partialDirectory + partial + ".html", "utf-8")
+                matches.forEach(function(match) {
+                    let partial = match.replace("{{", "").replace("}}", "").trim()
+                    let replacement = fs.readFileSync(partialDirectory + partial + ".html", "utf-8")
 
-                        rendered = content.replace(match, replacement)
-                    })
-                } else {
-                    rendered = content
-                }
+                    content = content.replace(match, replacement)
+                })
 
-                fs.writeFile("../" + file, rendered, function() {
+                rendered = content
+
+                let output = rendered.replace(/\r?\n|\r/g, "")
+                fs.writeFile("../" + file, output, function() {
                     console.log(`Successfully compiled ${file}`)
                 })
             })
