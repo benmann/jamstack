@@ -32,7 +32,7 @@ function compile() {
                     let matches = content.match(/{{(.*?)}}/g)
                     let rendered
 
-                    matches.forEach(function(match) {
+                    matches.forEach((match) => {
                         let partial = match.replace("{{", "").replace("}}", "").trim()
                         let replacement = fs.readFileSync(`${partialDirectory}/${partial}.html`, "utf-8")
 
@@ -42,12 +42,13 @@ function compile() {
                     rendered = content
 
                     let output = rendered.replace(/\r?\n|\r/g, "")
-                    fs.writeFile(`${dest}/${file}`, output, function() {
-                        console.log(`✓  Successfully compiled ${file}`)
+                    fs.writeFile(`${dest}/${file}`, output, () => {
+                        let date = new Date(Date.now())
+                        console.log(`✓  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} — Successfully compiled ${file}`)
                     })
                 })
             }
-        }, function() {
+        }, () => {
             process.exit()
         })
     })
