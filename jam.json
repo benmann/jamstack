@@ -1,0 +1,5 @@
+[{
+  "templates": "./templates",
+  "partials": "./templates/_partials",
+  "dest": "./dist"
+}]
