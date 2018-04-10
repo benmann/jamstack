@@ -12,14 +12,13 @@ if (!fs.existsSync(partialDirectory)) {fs.mkdirSync(partialDirectory)}
 if (!fs.existsSync(templateDirectory)) {fs.mkdirSync(templateDirectory)}
 
 
-console.log(`Watching ${templateDirectory}.`)
-fs.watch(templateDirectory, {recursive: true, encoding: 'buffer'}, (eventType, filename) => {
+console.log(`Watching ${templateDirectory} ...`)
+fs.watch(templateDirectory, {recursive: true}, () => {
     compile()
 })
 
 
 function compile() {
-    console.log("➡  Compiling...")
     fs.readdir(templateDirectory, function(err, files) {
 
         if (!files) {
